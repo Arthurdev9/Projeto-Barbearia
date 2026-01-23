@@ -5,12 +5,15 @@ import { MenuIcon } from 'lucide-react'
 import { Sheet, SheetTrigger } from './ui/sheet'
 
 import Sidebar from './sidebar-sheet'
+import Link from 'next/link'
 
 const Header = () => {
   return (
     <Card>
       <CardContent className="flex flex-row items-center justify-between p-5">
-        <Image src="/logo.png" height={18} width={120} alt="FSW barber" />
+        <Link href={'/'}>
+          <Image src="/logo.png" height={18} width={120} alt="FSW barber" />
+        </Link>
         <Sheet>
           <SheetTrigger asChild>
             <Button size="icon" variant="outline">
