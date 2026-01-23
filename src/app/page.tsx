@@ -1,13 +1,12 @@
 import BarbershopItem from '@/components/barbershop-item'
 import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { prisma } from 'lib/prisma'
-import { SearchIcon } from 'lucide-react'
 import { quickSearchOption } from './_constants/search'
 
 import Image from 'next/image'
 import BookingItem from '@/components/booking-item'
+import Search from '@/components/search'
 
 export default async function Home() {
   const barbershops = await prisma.barbershop.findMany({})
@@ -22,11 +21,8 @@ export default async function Home() {
         <h2 className="text-xl font-bold">Olá, Arthur!</h2>
         <p>Segunda-feira, 05 de Janeiro.</p>
 
-        <div className="mt-4 flex items-center gap-2">
-          <Input placeholder="Faça sua busca..." />
-          <Button>
-            <SearchIcon />
-          </Button>
+        <div className="mt-6">
+          <Search />
         </div>
 
         <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
