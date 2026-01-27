@@ -4,7 +4,6 @@ import { quickSearchOption } from '@/app/_constants/search'
 import { Button } from './ui/button'
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from './ui/sheet'
 import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon } from 'lucide-react'
-// import { Avatar, AvatarImage } from './ui/avatar'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Dialog, DialogContent, DialogTrigger } from './ui/dialog'
@@ -85,16 +84,18 @@ const Sidebar = () => {
           </SheetClose>
         ))}
       </div>
-      <div className="flex flex-col gap-2 py-5">
-        <Button
-          variant="ghost"
-          className="justify-start gap-2"
-          onClick={handleLogoutClick}
-        >
-          <LogOutIcon size={14} />
-          Sair da conta
-        </Button>
-      </div>
+      {data?.user && (
+        <div className="flex flex-col gap-2 py-5">
+          <Button
+            variant="ghost"
+            className="justify-start gap-2"
+            onClick={handleLogoutClick}
+          >
+            <LogOutIcon size={14} />
+            Sair da conta
+          </Button>
+        </div>
+      )}
     </SheetContent>
   )
 }
