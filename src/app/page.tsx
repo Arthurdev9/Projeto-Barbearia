@@ -23,7 +23,7 @@ export default async function Home() {
   const confirmedBookings = session?.user
     ? await prisma.booking.findMany({
         where: {
-          userId: (session.user as any).id,
+          userId: session.user.id,
           date: {
             gte: new Date()
           }
