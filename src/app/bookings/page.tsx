@@ -1,16 +1,16 @@
 import Header from '@/components/header'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../lib/auth'
-import { notFound } from 'next/navigation'
 import BookingItem from '@/components/booking-item'
 import { getConfirmedBookings } from '../_data/get-confirmed-bookings'
 import { getConcludedBookings } from '../_data/get-concluded-bookings'
+import BookingsLoginAlert from '@/components/booking-login-item'
 
 const Bookings = async () => {
   const session = await getServerSession(authOptions)
 
   if (!session?.user) {
-    return notFound()
+    return <BookingsLoginAlert />
   }
 
   const confirmedBookings = await getConfirmedBookings()
