@@ -184,7 +184,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
           <div className="space-y-2">
             <h3 className="text-sm font-semibold">{service.name}</h3>
             <p className="text-sm text-gray-400">{service.description}</p>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col space-y-2 sm:w-[200px] md:w-[200px] lg:w-full">
               <p className="text-sm font-bold text-primary">
                 {Intl.NumberFormat('pt-BR', {
                   style: 'currency',
@@ -204,10 +204,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                 </Button>
                 <SheetContent className="overflow-y-auto px-0 [&::-webkit-scrollbar]:hidden">
                   <SheetHeader>
-                    <SheetTitle>Fazer Reserva</SheetTitle>
+                    <SheetTitle className="p-5">Fazer Reserva</SheetTitle>
                   </SheetHeader>
                   <div className="border-b border-solid py-5">
                     <Calendar
+                      className="w-full"
                       mode="single"
                       locale={ptBR}
                       selected={selectedDay}
@@ -216,10 +217,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                         const today = new Date()
                         today.setHours(0, 0, 0, 0)
 
-                        return (
-                          date < today || // tudo no passado
-                          date.getDay() === 0 // domingo
-                        )
+                        return date < today || date.getDay() === 0
                       }}
                       styles={{
                         head_cell: {
@@ -247,7 +245,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                     />
                   </div>
                   {selectedDay && (
-                    <div className="flex gap-3 overflow-x-auto border-b border-solid p-5 [&::-webkit-scrollbar]:hidden">
+                    <div className="flex gap-3 overflow-x-auto border-b border-solid p-5 md:grid md:grid-cols-4 md:gap-3 md:overflow-visible [&::-webkit-scrollbar]:hidden">
                       {timeList.length > 0 ? (
                         timeList.map((time) => (
                           <Button
@@ -255,16 +253,18 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                             variant={
                               selectTime === time ? 'default' : 'outline'
                             }
-                            className="rounded-full"
+                            className="whitespace-nowrap rounded-full"
                             onClick={() => handleTimeSelect(time)}
                           >
                             {time}
                           </Button>
                         ))
                       ) : (
-                        <p className="text-xs">
-                          Não há horários disponíveis para este dia.
-                        </p>
+                        <div className="w-[300px]">
+                          <p className="text-xs md:text-sm">
+                            Não há horários disponíveis para este dia.
+                          </p>
+                        </div>
                       )}
                     </div>
                   )}

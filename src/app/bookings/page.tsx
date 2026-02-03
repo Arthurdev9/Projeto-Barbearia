@@ -16,37 +16,54 @@ const Bookings = async () => {
   const confirmedBookings = await getConfirmedBookings()
   const concludedBookings = await getConcludedBookings()
 
+  const hasBookings =
+    confirmedBookings.length > 0 || concludedBookings.length > 0
+
   return (
     <>
       <Header />
-      <div className="space-y-3 p-5">
+
+      <main className="mx-auto max-w-7xl space-y-6 p-5">
         <h1 className="text-xl font-bold">Agendamentos</h1>
-        {confirmedBookings.length === 0 && concludedBookings.length === 0 && (
+
+        {!hasBookings && (
           <p className="text-gray-400">Você não tem agendamentos.</p>
         )}
+
         {confirmedBookings.length > 0 && (
-          <h2 className="mb-3 mt-6 font-bold uppercase text-gray-400">
-            Confirmados
-          </h2>
+          <>
+            <h2 className="mt-6 font-bold uppercase text-gray-400">
+              Confirmados
+            </h2>
+
+            <div className="grid place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {confirmedBookings.map((booking) => (
+                <BookingItem
+                  key={booking.id}
+                  booking={JSON.parse(JSON.stringify(booking))}
+                />
+              ))}
+            </div>
+          </>
         )}
-        {confirmedBookings.map((booking) => (
-          <BookingItem
-            key={booking.id}
-            booking={JSON.parse(JSON.stringify(booking))}
-          />
-        ))}
+
         {concludedBookings.length > 0 && (
-          <h2 className="mb-3 mt-6 font-bold uppercase text-gray-400">
-            Finalizados
-          </h2>
+          <>
+            <h2 className="mt-6 font-bold uppercase text-gray-400">
+              Finalizados
+            </h2>
+
+            <div className="grid place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {concludedBookings.map((booking) => (
+                <BookingItem
+                  key={booking.id}
+                  booking={JSON.parse(JSON.stringify(booking))}
+                />
+              ))}
+            </div>
+          </>
         )}
-        {concludedBookings.map((booking) => (
-          <BookingItem
-            key={booking.id}
-            booking={JSON.parse(JSON.stringify(booking))}
-          />
-        ))}
-      </div>
+      </main>
     </>
   )
 }
